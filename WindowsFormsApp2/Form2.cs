@@ -12,9 +12,9 @@ namespace mathQuiz
 {
     public partial class Form2 : Form
     {
-        int time=61;
+        int time=121;
         Random randomizer = new Random();
-        int operators;
+        //int operators;
         double number1;
         double number2;
         double number3;
@@ -40,14 +40,16 @@ namespace mathQuiz
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            number1 = randomizer.Next(50, 100);
-            number2 = randomizer.Next(1, 49);
-            number3 = randomizer.Next(50, 100);
-            number4 = randomizer.Next(1, 49);
+            number1 = randomizer.Next(1, 30);
+            number2 = randomizer.Next(30, 100);
+            number3 = randomizer.Next(1, 30);
+            number4 = randomizer.Next(30, 100);
 
 
             label1.Text = number1.ToString();
             label4.Text = number2.ToString();
+            label6.Text = number3.ToString();
+            label8.Text = number4.ToString();
                        
             int operators = randomizer.Next(4);
 
@@ -55,31 +57,30 @@ namespace mathQuiz
             {
                 case 0:
                     answer = number1 + number2;
-                    answer2 = number3 + number4;
+                    answer2 = number3 * number4;
+                    label7.Text = "*";
                     label3.Text = "+";
                         break;
                 case 1:
                     answer = number1 * number2;
                     answer2 = number3 + number4;
+                    label7.Text = "+";
                     label3.Text = "*";
                         break;
                 case 2:
                     answer = number1 - number2;
-                    answer2 = number3 + number4;
+                    answer2 = number3 - number4;
+                    label7.Text = "-";
                     label3.Text = "-";
                     break;
                 case 3:
-                    answer = SneakieRounder(number1 / number2);
-                    answer = SneakieRounder(number3 / number4);
+                    answer = (int)((number1 / number2) + 0.5);
+                    answer2 = (int)((number3 / number4) + 0.5);
+                    label7.Text = "/";
                     label3.Text = "/";
                     break;
             }
-
-            int SneakieRounder(double answer)
-            {
-                return (int)(answer + 0.5);
-            }
-
+            
         }
 
         private void lblTimeLeft_Click(object sender, EventArgs e)
@@ -88,22 +89,20 @@ namespace mathQuiz
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !char.IsDigit(e.KeyChar) || e.KeyChar == '.';
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+            //e.Handled = !char.IsDigit(e.KeyChar) || e.KeyChar == '.';
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label4_Click(object sender, EventArgs e)
         {
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -128,24 +127,24 @@ namespace mathQuiz
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label5_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == "")
+            if (textBox1.Text == "" || textBox2.Text == "")
             {
                 MessageBox.Show("Input needed");
                 return;
             }
 
             string input = textBox1.Text;
+            string inputBox2 = textBox2.Text;
             input1 = Convert.ToDouble(input);
+            input2 = Convert.ToDouble(inputBox2);
 
             if (CheckTheAnswer())
             {
@@ -170,7 +169,8 @@ namespace mathQuiz
 
         private void textBox1_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !char.IsDigit(e.KeyChar) || e.KeyChar == '.';
+            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+            //e.Handled = !char.IsDigit(e.KeyChar) || e.KeyChar == '.';
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -186,6 +186,11 @@ namespace mathQuiz
         private void label8_Click(object sender, EventArgs e)
         {
             //number4
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
