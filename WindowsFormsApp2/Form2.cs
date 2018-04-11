@@ -17,9 +17,13 @@ namespace mathQuiz
         int operators;
         double number1;
         double number2;
+        double number3;
+        double number4;
         double answer;
+        double answer2;
         double input1;
-
+        double input2;
+        
         public Form2()
 
         {
@@ -28,7 +32,7 @@ namespace mathQuiz
 
         private bool CheckTheAnswer()
         {
-            if (answer == input1)
+            if (answer == input1 && answer2 == input2)
                 return true;
             else
                 return false;
@@ -38,6 +42,9 @@ namespace mathQuiz
         {
             number1 = randomizer.Next(50, 100);
             number2 = randomizer.Next(1, 49);
+            number3 = randomizer.Next(50, 100);
+            number4 = randomizer.Next(1, 49);
+
 
             label1.Text = number1.ToString();
             label4.Text = number2.ToString();
@@ -48,18 +55,22 @@ namespace mathQuiz
             {
                 case 0:
                     answer = number1 + number2;
+                    answer2 = number3 + number4;
                     label3.Text = "+";
                         break;
                 case 1:
                     answer = number1 * number2;
+                    answer2 = number3 + number4;
                     label3.Text = "*";
                         break;
                 case 2:
                     answer = number1 - number2;
+                    answer2 = number3 + number4;
                     label3.Text = "-";
                     break;
                 case 3:
                     answer = SneakieRounder(number1 / number2);
+                    answer = SneakieRounder(number3 / number4);
                     label3.Text = "/";
                     break;
             }
