@@ -37,7 +37,7 @@ namespace mathQuiz
         private void Form2_Load(object sender, EventArgs e)
         {
             number1 = randomizer.Next(50, 100);
-            number2 = randomizer.Next(1, 50);
+            number2 = randomizer.Next(1, 49);
 
             label1.Text = number1.ToString();
             label4.Text = number2.ToString();
@@ -59,9 +59,14 @@ namespace mathQuiz
                     label3.Text = "-";
                     break;
                 case 3:
-                    answer = number1 / number2;
+                    answer = SneakieRounder(number1 / number2);
                     label3.Text = "/";
                     break;
+            }
+
+            int SneakieRounder(double answer)
+            {
+                return (int)(answer + 0.5);
             }
 
         }
@@ -72,7 +77,7 @@ namespace mathQuiz
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
+            e.Handled = !char.IsDigit(e.KeyChar) || e.KeyChar == '.';
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -122,6 +127,12 @@ namespace mathQuiz
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (textBox1.Text == "")
+            {
+                MessageBox.Show("Input needed");
+                return;
+            }
+
             string input = textBox1.Text;
             input1 = Convert.ToDouble(input);
 
@@ -132,11 +143,9 @@ namespace mathQuiz
                 Application.Exit();
             }
             else if (time > 0)
-            {
-                timer1.Stop();
+            { 
                 MessageBox.Show("wrong, try again");
-                timer1.Start();
-                time = time - 1;
+                time = time++;
                 lblTimeLeft.Text = time + " seconds";
 
             }
@@ -149,8 +158,23 @@ namespace mathQuiz
         }
 
         private void textBox1_KeyPress_1(object sender, KeyPressEventArgs e)
-        {            
-                e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);           
+        {
+            e.Handled = !char.IsDigit(e.KeyChar) || e.KeyChar == '.';
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            //number3
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+            //operator2
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+            //number4
         }
     }
 }
